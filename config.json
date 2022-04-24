@@ -1,0 +1,18 @@
+{
+    "params":
+    {
+      "local_server":"True",
+      "local_uri": "sqlite:///train_db.db",
+      "prod_uri":"",
+      "proj-name":"Stock Trading",
+      "tagline":"A place for testing Stock Trading.....",
+      "fb_url":"https://www.facebook.com/codeblogger/",
+      "tw_url":"https://twitter.com/codeblogger",
+      "gh_url":"https://github.com/codeblogger",
+      "about":"Hi, I'm a programmer/graphic designer...........",
+      "login_image":"bootstrap-solid.svg",
+      "admin_user":"admin",
+      "admin_password": "admin",
+      "upload_location": "D:\\Major\\static"
+  }
+}

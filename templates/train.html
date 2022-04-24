@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<!-- Flash  Message -->
+
+<div class="align_items center" style="margin:1rem 10rem;">
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{category}} alert-dismissible fade-show" role="alert" style="padding: 0; width:50%; margin:0;">
+          <strong style="padding-left: 2rem;">{{message}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" style="padding: 0; margin:0.3rem 0.5rem;"></button>
+          </button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+    <!-- Form -->
+    <form class="row row-cols-lg-auto g-3" name="trainform" action="/train" id="trainingForm" method="POST">
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormInputGroupModelname">Modelname</label>
+          <div class="input-group">
+            <input type="text" name="modelname" class="form-control" id="inlineFormInputGroupModelname" placeholder="Model Name" required data-validation-required-message="Please enter your model name.">
+          </div>
+        </div>
+      
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormSelectPref">Algorithm</label>
+          <select class="form-select" id="inlineFormSelectPref" name="algorithm" placeholder="algorithm" required data-validation-required-message="Please choose algoritm">
+            <option value="">Choose Algorithm</option>
+            <option value="DQN">DQN</option> 
+            <option value="A2C">A2C</option>
+            <option value="PPO">PPO</option>
+          </select>
+        </div>
+
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormSelectPref">Dataset</label>
+          <select class="form-select" id="inlineFormSelectPref" name="dataset" required
+            data-validation-required-message="Please choose stock">
+            <option value="">Choose dataset</option>
+            <!-- Dynamically fetching dataset names  -->
+            {%for data in datas%}
+            <option value={{data}}>{{data}}</option>
+            {%endfor%}
+        
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormInputGroupStart">Start Date</label>
+          <div class="input-group">
+            <input type="date" title="Start Date" name="startdate" value="2015-01-01" min="2011-04-01" max="2021-02-29" class="form-control"
+              id="inlineFormInputGroupStart" placeholder="Start Date" required data-validation-required-message="Please enter the start date">
+          </div>
+        </div>
+        <div class="col-12">
+          <label class="visually-hidden" for="inlineFormInputGroupEnd">End Date</label>
+          <div class="input-group">
+            <input type="date" title="End Date" name="enddate" value="2020-01-01" min="2011-04-01" max="2021-02-29" class="form-control"
+              id="inlineFormInputGroupEnd" placeholder="End Date" required data-validation-required-message="Please enter the end date">
+          </div>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Train</button>
+        </div>
+      </form>
+    <!-- Form -->
+</div>
+{% endblock %}

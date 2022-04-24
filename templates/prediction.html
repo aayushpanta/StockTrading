@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="aligh-item-center" style="margin:1rem 18rem;">
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  {% for category, message in messages %}
+  <div class="alert alert-{{category}} alert-dismissible fade-show" role="alert"
+    style="padding: 0; width:50%; margin:0;">
+    <strong style="padding-left: 2rem;">{{message}}</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+      style="padding: 0; margin:0.3rem 0.5rem;"></button>
+    </button>
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+    <!-- Form -->
+    <form class="row gy-2 gx-3 align-items-center" name="predictform" action="/getPredictions" id="predictionForm" method="POST">      
+        <div class="col-auto">
+          <label class="visually-hidden" for="inlineFormSelectPref">Modelname</label>
+          <select class="form-select" id="inlineFormSelectPref1" name="modelname", placeholde="trainedmodelname" required data-validation-required-message="Please choose your model">
+            <option value="">Choose model</option>
+            <!-- Dynamically fetching saved model names  -->
+            {%for model in models%}
+            <option value={{model}} >{{model}}</option> 
+            {%endfor%}
+          </select>
+        </div>
+
+        <div class="col-auto">
+            <label class="visually-hidden" for="inlineFormSelectPref">Dataset</label>
+            <select class="form-select" id="inlineFormSelectPref" name="dataset" required data-validation-required-message="Please choose stock">
+              <option value="">Choose dataset</option>              
+              <!-- Dynamically fetching dataset names  -->
+              {%for data in datas%}
+              <option value={{data}} >{{data}}</option>              
+              {%endfor%}
+              
+            </select>
+          </div>
+          <div class="col-auto">
+            <label class="visually-hidden" for="inlineFormInputGroupStart">Start Date</label>
+            <div class="input-group">
+              <input type="date" title="Start Date" name="startdate" value="2020-01-01" min="2011-04-01" max="2021-02-29" class="form-control" id="inlineFormInputGroupStart" placeholder="Start Date"
+              required data-validation-required-message="Please enter the start date">
+            </div>
+          </div>
+          <div class="col-auto">
+            <label class="visually-hidden" for="inlineFormInputGroupEnd">End Date</label>
+            <div class="input-group">
+              <input type="date" name="enddate" title="End Date" value="2021-01-01" min="2011-04-01" max="2021-02-29" class="form-control" id="inlineFormInputGroupEnd" placeholder="End Date"
+              required data-validation-required-message="Please enter the end date">
+            </div>
+          </div>
+        
+        <div class="col-auto">
+          <button  type="submit" class="btn btn-primary" id="submit">predict</button>
+          <!-- change to /renderPrediction if used  location.href=this.href+mname-->
+        </div>
+      </form>
+    <!-- Form -->
+    <!-- <p id="para"></p>
+      
+    <script type="text/javascript">
+      function myfunc(){
+        var mname = document.getElementsByName('modelname').value 
+        //options[select.selectedIndex].text;
+        var HTML = '<a href="/renderPrediction/'+mname+'>predict</a>'
+        document.getElementById(para).innerHTML(HTML)
+        consol.log(mname)
+      }
+    </script> -->
+    <!-- show graphs and result after submit -->
+      <!-- <h5>show graphs and result after submit </h5> -->
+</div>
+{% endblock %}

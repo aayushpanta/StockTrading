@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h4 class="row justify-content-center">Buy/Sell prediction Chart-{{mode}} result</h4>
+<div id="chart_div" style="margin:10px 30px;"></div>
+
+<script type="text/javascript">
+    google.charts.load('current', {
+            packages: ['corechart', 'line']
+        });
+    google.charts.setOnLoadCallback(drawBackgroundColor);
+
+    function drawBackgroundColor() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Date');
+        data.addColumn('number', 'PRICE');
+        data.addColumn('number', 'Short');
+        data.addColumn('number', 'long');
+        df = {{jsondata|safe}}
+        var title = "Chart of {{bankname|safe}} using model: {{modelname|safe}}"
+        data.addRows(df)   
+        var options = {
+        title: title,
+        explorer: { 
+            axis : 'horizontal',
+            keepInBounds: true,
+            actions: ['dragToZoom', 'rightClickToReset']},
+        crosshair:{trigger:'selection'},
+        hAxis: {title: 'DATE'},
+        vAxis: {title: 'PRICE'},
+        seriesType: 'line',
+        color: '#f1b8e6',
+        series: { 1: { type: 'scatter', color: "red" , pointSize: 2, pointShape: { type: 'triangle', rotation: 180 }},
+                2: { type: 'scatter', color: "green" , pointSize: 2, pointShape: 'triangle'} },
+        backgroundColor: '#f1f8e9',
+        hAxis: {
+                viewWindow: {
+                    max: 300
+                }
+            },
+        height: 500
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+</script>
+
+{% endblock %}
