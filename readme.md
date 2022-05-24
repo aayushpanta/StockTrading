@@ -1,4 +1,4 @@
-### Stock Trading Using Deep Reinforcement Learning
+# Stock Trading Using Deep Reinforcement Learning
 
 ## How to Run the Project
 1. env\Scripts\activate(if you are using a virtual environment)
