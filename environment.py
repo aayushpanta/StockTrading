@@ -76,8 +76,10 @@ class StocksEnv(TradingEnv):
             elif self._position_history[i] == Positions.Long:
                 long_ticks.append(tick)
 
-        plt.plot(short_ticks, self.prices[short_ticks], 'ro', label = 'Down trend(buy at trend end)')
-        plt.plot(long_ticks, self.prices[long_ticks], 'go',label = 'Up trend(sell at trend end)')
+        plt.plot(short_ticks, self.prices[short_ticks], 'ro', label = 'Predicted Down trend(buy at trend end)')
+        plt.plot(long_ticks, self.prices[long_ticks], 'go',label = 'Predicted Up trend(sell at trend end)')
+        plt.xlabel("Days")
+        plt.ylabel("Price")
         plt.legend()
 
         plt.suptitle(
